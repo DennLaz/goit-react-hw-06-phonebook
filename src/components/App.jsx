@@ -1,6 +1,8 @@
 // import { Component } from 'react';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { nanoid } from 'nanoid';
+import { useCallback } from 'react';
+
+import { useSelector } from 'react-redux';
+
 
 import Section from './Section';
 import ContactsForm from './ContactsForm';
@@ -10,53 +12,53 @@ import Filter from './Filter';
 import styles from './app.module.css';
 
 export function App() {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useState([]);
+  // const [filter, setFilter] = useState('');
 
-  const firstRender = useRef(true);
+  // const firstRender = useRef(true);
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('contacts'));
-    if (items?.length) {
-      setContacts(items);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const items = JSON.parse(localStorage.getItem('contacts'));
+  //   if (items?.length) {
+  //     setContacts(items);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (!firstRender.current) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    } else {
-      firstRender.current = false;
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   if (!firstRender.current) {
+  //     localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   } else {
+  //     firstRender.current = false;
+  //   }
+  // }, [contacts]);
 
-  const addContacts = useCallback(
-    ({ name, number }) => {
-      const newContact = {
-        name,
-        number,
-        id: nanoid(),
-      };
-      setContacts(prevState => {
-        const findName = contacts.find(el => el.name === name);
-        if (!findName) {
-          return [...prevState, newContact];
-        } else {
-          alert(`${newContact.name} is already in contacts`);
-        }
-      });
-    },
-    [contacts]
-  );
+  // const addContacts = useCallback(
+  //   ({ name, number }) => {
+  //     const newContact = {
+  //       name,
+  //       number,
+  //       id: nanoid(),
+  //     };
+  //     setContacts(prevState => {
+  //       const findName = contacts.find(el => el.name === name);
+  //       if (!findName) {
+  //         return [...prevState, newContact];
+  //       } else {
+  //         alert(`${newContact.name} is already in contacts`);
+  //       }
+  //     });
+  //   },
+  //   [contacts]
+  // );
 
-  const removeContacts = useCallback(
-    id => {
-      setContacts(prevContacts =>
-        prevContacts.filter(contact => contact.id !== id)
-      );
-    },
-    [setContacts]
-  );
+  // const removeContacts = useCallback(
+  //   id => {
+  //     setContacts(prevContacts =>
+  //       prevContacts.filter(contact => contact.id !== id)
+  //     );
+  //   },
+  //   [setContacts]
+  // );
 
   const handleFilter = useCallback(
     ({ target }) => {
