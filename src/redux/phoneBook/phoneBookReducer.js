@@ -1,22 +1,11 @@
-import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import {
-  addPhoneBook,
-  filterPhoneBook,
-  removePhoneBook,
-} from './phoneBookAction';
 
-const items = createReducer([], {
-  [addPhoneBook]: (store, { payload }) => [...store, payload],
-  [removePhoneBook]: (store, { payload }) =>
-    store.filter(({ id }) => id !== payload),
+import filterReducer from './phoneBookFilter/filterReducerSlice';
+import itemsReducer from './phoneBookItems/itemsReducerSlice';
+
+const phoneBookReducer = combineReducers({
+  items: itemsReducer,
+  filter: filterReducer,
 });
 
-const filter = createReducer('', {
-  [filterPhoneBook]: (_, { payload }) => payload,
-});
-
-export default combineReducers({
-  items,
-  filter,
-});
+export default phoneBookReducer;
